@@ -13,3 +13,14 @@
  *
  * @see: https://codeigniter4.github.io/CodeIgniter4/
  */
+if (!function_exists('routePath')) {
+    /**
+     * Returns the full url of a named route. Requires the app's base url to be declared in .env file.
+     *
+     * @param mixed $routeName
+     */
+    function routePath(string $routeName): string
+    {
+        return base_url(route_to($routeName));
+    }
+}
