@@ -47,7 +47,7 @@
     <div id="app" class="bg-light">
         <?php echo $this->include('components/navbar-unauthenticated'); ?>
         <main class="py-4">
-            
+            <?php echo $this->include('components/spinner'); ?>
             <?php echo $this->renderSection('content'); ?>
             
             <?php echo $this->renderSection('modals'); ?>
