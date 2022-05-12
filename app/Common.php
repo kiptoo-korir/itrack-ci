@@ -24,3 +24,25 @@ if (!function_exists('routePath')) {
         return base_url(route_to($routeName));
     }
 }
+
+if (!function_exists('checkIfAuth')) {
+    /**
+     * Checks if there's a logged in user in the session.
+     */
+    function checkIfAuth(): bool
+    {
+        return session('isLoggedIn') ?? false;
+    }
+}
+
+if (!function_exists('dumpAndExit')) {
+    /**
+     * Performs a var dump and exits the application.
+     */
+    function dumpAndExit(...$var): void
+    {
+        var_dump(...$var);
+
+        exit();
+    }
+}

@@ -39,6 +39,9 @@ $routes->post('/signup', 'Auth::signup', ['as' => 'signup']);
 $routes->get('/about', 'About::aboutPage', ['as' => 'about']);
 $routes->get('/test', 'Test::test');
 
+$routes->group('', ['filter' => 'auth'], function ($routes) {
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

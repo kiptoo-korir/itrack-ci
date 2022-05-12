@@ -19,6 +19,7 @@ class Auth extends BaseController
 
     public function login()
     {
+        // TODO: Throttle this
         $this->validate([
             'email' => 'required|valid_email',
             'password' => 'required',
@@ -75,9 +76,8 @@ class Auth extends BaseController
         $password = $this->request->getVar('password');
         $name = $this->request->getVar('name');
 
-        var_dump($password, $this->request->getVar('password_confirmation'));
+        dumpAndExit($password, $this->request->getVar('password_confirmation'));
 
-        exit();
         $userModel = new User();
         $newUser = $userModel->insert([
             'name' => $name,
@@ -103,5 +103,12 @@ class Auth extends BaseController
     public function signupView()
     {
         echo view('auth/signup');
+    }
+
+    public function logout()
+    {
+        session_destroy();
+
+        return redirect()->to('/');
     }
 }
