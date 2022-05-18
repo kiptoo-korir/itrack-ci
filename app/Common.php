@@ -46,3 +46,13 @@ if (!function_exists('dumpAndExit')) {
         exit();
     }
 }
+
+if (!function_exists('getAuthId')) {
+    /**
+     * Returns the authenticated user's id.
+     */
+    function getAuthId(): int
+    {
+        return session('id') ?? 0;
+    }
+}
