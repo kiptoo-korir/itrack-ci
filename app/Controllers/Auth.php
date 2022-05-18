@@ -34,9 +34,9 @@ class Auth extends BaseController
         $user = $userModel->where('email', $email)->first();
 
         if (!$user) {
-            $session->setFlashdata('message', 'Please provide a valid email.');
+            $session->setFlashdata('message', ['email' => 'Please provide a valid email.']);
 
-            return redirect()->to('/login');
+            return redirect()->to('/login')->withInput();
         }
 
         $authenticationStatus = password_verify($password, $user['password']);
@@ -54,9 +54,9 @@ class Auth extends BaseController
             return redirect()->to('/');
         }
 
-        $session->setFlashdata('message', 'The password provided is incorrect. Please input the correct one.');
+        $session->setFlashdata('message', ['password' => 'The password provided is incorrect. Please input the correct one.']);
 
-        return redirect()->to('/login');
+        return redirect()->to('/login')->withInput();
     }
 
     public function signup()
