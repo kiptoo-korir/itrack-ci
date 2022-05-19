@@ -8,7 +8,8 @@
     <!-- CSRF Token -->
     <meta name="{csrf_header}" content="{csrf_hash}">
 
-    <title><?php env('CI_APP_NAME', 'iTrack'); ?></title>
+    <title><?php env('CI_APP_NAME', 'iTrack'); ?>
+    </title>
 
     <!-- Scripts -->
     <link rel="stylesheet"
@@ -16,7 +17,7 @@
         integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
 
     <!-- favicon  -->
-    <link rel="shortcut icon" href="/img/itrack_icon_2.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/itrack_icon_2.png" type="image/x-icon">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -39,7 +40,6 @@
         .text-black {
             color: black !important;
         }
-
     </style>
 </head>
 
@@ -49,7 +49,7 @@
         <main class="py-4">
             <?php echo $this->include('components/spinner'); ?>
             <?php echo $this->renderSection('content'); ?>
-            
+
             <?php echo $this->renderSection('modals'); ?>
         </main>
     </div>

@@ -8,7 +8,8 @@
     <!-- CSRF Token -->
     <meta name="{csrf_header}" content="{csrf_hash}">
 
-    <title><?php env('CI_APP_NAME', 'iTrack'); ?></title>
+    <title><?php env('CI_APP_NAME', 'iTrack'); ?>
+    </title>
 
     <!-- Scripts -->
     <link rel="stylesheet"
@@ -16,7 +17,7 @@
         integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
 
     <!-- favicon  -->
-    <link rel="shortcut icon" href="/img/itrack_icon_2.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/itrack_icon_2.png" type="image/x-icon">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -56,7 +57,7 @@
 
 <body>
     <div id="app" class="bg-light">
-        <?php echo $this->include('components/navbar-unauthenticated'); ?>
+        <?php echo $this->include('components/navbar-authenticated'); ?>
         <!-- TODO: Include no token cta later -->
         <main class="py-4">
             <?php echo $this->include('components/spinner'); ?>
@@ -67,10 +68,13 @@
 </body>
 <script src="js/jquery-3.6.0.js"></script>
 <script src="js/bootstrap.bundle.js"></script>
-<script src="js/simple.toast.min.js"></script>
+<script src="js/simple_toast.min.js"></script>
 <script src="js/custom.js"></script>
 <script>
-    var simpleToast = new SimpleToast({duration: 6000, position:"top-right"});
+    const simpleToast = new SimpleToast({
+        duration: 6000,
+        position: "top-right"
+    });
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('notification-dropdown').addEventListener('click', function(e) {
             e.stopPropagation();
