@@ -39,8 +39,15 @@ $routes->get('/about', 'About::aboutPage', ['as' => 'about']);
 $routes->get('/test', 'Test::test');
 
 $routes->group('', ['filter' => 'auth'], function ($routes) {
-    $routes->post('/logout', 'Auth::logout', ['as' => 'logout']);
+    // View routes passed through filter
+    $routes->group('', ['filter' => 'userinfo'], function ($routes) {
+        $routes->get('/tasks', 'Task::taskView', ['as' => 'task']);
+    });
     $routes->get('/', 'Home::index', ['as' => 'home']);
+    $routes->get('/get-tasks', 'Task::getTasks', ['as' => 'get-tasks']);
+    $routes->post('/delete-task', 'Task::deleteTask', ['as' => 'delete-task']);
+
+    $routes->post('/logout', 'Auth::logout', ['as' => 'logout']);
 });
 
 /*
