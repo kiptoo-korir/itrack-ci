@@ -1,7 +1,7 @@
 <?php $this->extend('layouts/app'); ?>
 
 <?php $this->section('css_scripts'); ?>
-<link rel="stylesheet" href="/css/datatables.min.css">
+<link rel="stylesheet" href="css/datatables.min.css">
 <style>
     #task_list thead {
         display: none;
@@ -79,7 +79,7 @@
         </div>
     </div>
 </div>
-{{-- Delete modal --}}
+<!-- Delete modal  -->
 <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeBtn" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -104,7 +104,7 @@
         </div>
     </div>
 </div>
-{{-- Edit Modal --}}
+<!-- Edit Modal  -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="#edit_btn" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -162,14 +162,14 @@
 
 
 <?php $this->section('js_scripts'); ?>
-<script src="/js/datatables.min.js"></script>
+<script src="js/datatables.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#task_list').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('get_tasks') }}"
+                url: "<?php echo routePath('get-tasks'); ?>"
             },
             columns: [{
                 data: 'description',
@@ -178,8 +178,8 @@
             columnDefs: [{
                 targets: 0,
                 render: function(data, type, row) {
-                    var record = encodeURIComponent(JSON.stringify(row));
-                    var card = `<div class="card"><div class="card-header">`;
+                    const record = encodeURIComponent(JSON.stringify(row));
+                    let card = `<div class="card"><div class="card-header">`;
                     card += (row.status === 'Todo') ? `${row.title}</div>` :
                         `<del>${row.title}</del></div>`
                     card += `<div class="card-body"><div class="card-text">`
