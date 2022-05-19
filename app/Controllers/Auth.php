@@ -8,11 +8,9 @@ class Auth extends BaseController
 {
     public function loginView()
     {
-        // $auth = service('auth');
-
-        // if ($auth->isLoggedIn()) {
-        //     return redirect()->to(route_to('home'));
-        // }
+        if (!checkIfAuth()) {
+            return redirect()->to(route_to('home'));
+        }
 
         echo view('auth/login');
     }
