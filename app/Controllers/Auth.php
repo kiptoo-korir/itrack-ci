@@ -8,7 +8,7 @@ class Auth extends BaseController
 {
     public function loginView()
     {
-        if (!checkIfAuth()) {
+        if (checkIfAuth()) {
             return redirect()->to(route_to('home'));
         }
 
