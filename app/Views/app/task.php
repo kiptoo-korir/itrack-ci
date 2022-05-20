@@ -96,7 +96,7 @@
             <div class="modal-footer">
                 <form class="" id="remove_form" action="" method="post">
                     <?php csrf_field(); ?>
-                    <input type="hidden" id="delete_id" name="task_id" value="">
+                    <input type="hidden" id="delete_id" name="taskId" value="">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" id="delete_btn" class="btn btn-danger">Delete</button>
                 </form>
@@ -116,8 +116,8 @@
             </div>
             <form action="" class="form-groups" method="POST" id="edit_task_form">
                 <div class="modal-body">
-                    @csrf
-                    <input type="hidden" name="task_id" id="edit_id">
+                    <?php csrf_field(); ?>
+                    <input type="hidden" name="taskId" id="edit_id">
                     <div class="form-group">
                         <div class="row">
                             <label class="col-md-4">Title</label>
@@ -202,13 +202,14 @@
 
     $('#remove_form').on('submit', function(event) {
         event.preventDefault();
-        var deleteForm = $('#remove_form').closest('form');
-        var delete_record = deleteForm.serialize();
-        var action_url = "{{ route('delete_task')}}";
+        const deleteForm = $('#remove_form').closest('form');
+        const deleteRecord = deleteForm.serialize();
+        const actionUrl =
+            "<?php echo routePath('delete-task'); ?>";
         $.ajax({
-            url: action_url,
+            url: actionUrl,
             method: "POST",
-            data: delete_record,
+            data: deleteRecord,
             dataType: "json",
             success: function(data) {
                 feedback(data.success, 'success');
@@ -217,7 +218,7 @@
                 $('#task_list').DataTable().ajax.reload();
             },
             error: function(jqXhr, textStatus, errorThrown) {
-                var errors = JSON.parse(jqXhr.responseText);
+                let errors = JSON.parse(jqXhr.responseText);
                 if (jqXhr.status == 422) {
                     feedback(errors.errors.id, 'error');
                     hideSpinner();
@@ -230,8 +231,8 @@
     });
 
     $('#editModal').on('show.bs.modal', function(e) {
-        var button = e.relatedTarget;
-        var data = $(button).data('record');
+        const button = e.relatedTarget;
+        let data = $(button).data('record');
         data = JSON.parse(decodeURIComponent(data));
         $('#edit_title').val(data.title);
         $('#edit_description').val(data.description);
@@ -240,23 +241,23 @@
     });
 
     $('#removeModal').on('show.bs.modal', function(e) {
-        var button = e.relatedTarget;
-        var delete_id = $(button).data('id');
-        $('#delete_id').val(delete_id);
+        const button = e.relatedTarget;
+        const deleteId = $(button).data('id');
+        $('#delete_id').val(deleteId);
     });
 
     (function($) {
-        var task_form = $('#task_form');
+        let taskForm = $('#task_form');
 
         function processTaskForm(e) {
-            let formDetails = task_form.serialize();
+            let formDetails = taskForm.serialize();
             showSpinner();
 
             $.ajax({
                 headers: {
                     "Accept": "application/json"
                 },
-                url: "{{ route('add_task') }}",
+                url: "<?php echo routePath('add-task'); ?>",
                 type: "post",
                 contentType: "application/x-www-form-urlencoded",
                 data: formDetails,
@@ -266,7 +267,7 @@
                     $('#task_list').DataTable().ajax.reload();
                 },
                 error: function(jqXhr, textStatus, errorThrown) {
-                    var errors = JSON.parse(jqXhr.responseText);
+                    let errors = JSON.parse(jqXhr.responseText);
                     if (jqXhr.status == 422) {
                         feedback(errors.errors.description || errors.title, 'error');
                         hideSpinner();
@@ -279,21 +280,21 @@
             e.preventDefault();
         }
 
-        task_form.submit(processTaskForm);
+        taskForm.submit(processTaskForm);
     })(jQuery);
 
     (function($) {
-        var edit_task = $('#edit_task_form');
+        const editTask = $('#edit_task_form');
 
         function processEditForm(e) {
-            let formDetails = edit_task.serialize();
+            let formDetails = editTask.serialize();
             showSpinner();
 
             $.ajax({
                 headers: {
                     "Accept": "application/json"
                 },
-                url: "{{ route('edit_task') }}",
+                url: "<?php echo routePath('update-task'); ?>",
                 type: "post",
                 contentType: "application/x-www-form-urlencoded",
                 data: formDetails,
@@ -303,7 +304,7 @@
                     $('#task_list').DataTable().ajax.reload();
                 },
                 error: function(jqXhr, textStatus, errorThrown) {
-                    var errors = JSON.parse(jqXhr.responseText);
+                    let errors = JSON.parse(jqXhr.responseText);
                     if (jqXhr.status == 422) {
                         feedback(errors.errors.description || errors.title || errors.status, 'error');
                         hideSpinner();
@@ -316,7 +317,7 @@
             e.preventDefault();
         }
 
-        edit_task.submit(processEditForm);
+        editTask.submit(processEditForm);
     })(jQuery);
 </script>
 <?php $this->endSection('js_scripts');

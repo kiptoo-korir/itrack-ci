@@ -70,4 +70,27 @@ class Task extends BaseController
             return $this->response->setStatusCode(200)->setJSON(['message' => 'Task has been updated successfully.']);
         }
     }
+
+    public function createTask()
+    {
+        $this->validate([
+            'title' => 'required|string',
+            'description' => 'required|string',
+        ]);
+
+        $userId = getAuthId();
+        $taskRecord = [
+            'user_id' => $userId,
+            'title' => $this->request->getVar('title'),
+            'description' => $this->request->getVar('description'),
+        ];
+
+        $taskModel = new TaskModel();
+
+        if ($task = $taskModel->insert($taskRecord)) {
+            return $this->response->setStatusCode(200)->setJSON(['message' => 'Task created successfully.']);
+        }
+
+        return $this->response->setStatusCode(400)->setJSON(['message' => 'An error seems to have occurred, please try again.']);
+    }
 }
